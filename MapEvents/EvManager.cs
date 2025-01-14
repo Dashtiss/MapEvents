@@ -1,12 +1,12 @@
+using UnityEngine;
 using Exiled.API.Enums;
 using Exiled.API.Features;
-using Exiled.API.Features.Items;
+using GameCore;
 using PlayerRoles;
-using UnityEngine;
-using Utils;
-using ServerArgs = Exiled.Events.EventArgs.Server;
+using Log = Exiled.API.Features.Log;
 using PlayerArgs = Exiled.Events.EventArgs.Player;
 using PlayerHandler = Exiled.Events.Handlers.Player;
+using ServerHandler = Exiled.Events.Handlers.Server;
 using Random = System.Random;
 
 namespace MapEvents;
@@ -19,9 +19,10 @@ public class EvManager(MapEventsConfig config)
     {
         Log.Error("Events system isn't ready yet.");
         PlayerHandler.Died += Died;
+        ServerHandler.RoundStarted += OnRoundStart;
     }
 
-    public static void OnRoundStart()
+    private static void OnRoundStart()
     {
         
     }
@@ -36,6 +37,7 @@ public class EvManager(MapEventsConfig config)
         
         ev.Player.Explode(ProjectileType.FragGrenade, ev.Player);
         var message = Config.PeanutMessage.Replace("{{Player}}", ev.Player.DisplayNickname);
+        // ReSharper disable once ForeachCanBePartlyConvertedToQueryUsingAnotherGetEnumerator
         foreach (Player player in PluginAPI.Core.Player.GetPlayers())
         {
             var dist = Vector3.Distance(playerPosition, player.Position);

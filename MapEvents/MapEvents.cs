@@ -11,12 +11,13 @@ public class MapEvents : Plugin<MapEventsConfig>
     public override string Prefix => "MapEvents";
     public override Version Version { get; } = new Version(1, 0, 0);
     public override Version RequiredExiledVersion { get; } = new Version(9, 3, 0);
-    public static MapEvents Instance { get; private set; } = null!;
+    // ReSharper disable once MemberCanBePrivate.Global
+    public static MapEvents Instance { get; set; } = null!;
     public override void OnEnabled()
     {
         Instance = this;
         EvManager eh = new EvManager(Instance.Config);
-        
+        eh.EnableEvents();
         base.OnEnabled();
     }
 

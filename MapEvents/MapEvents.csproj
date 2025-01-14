@@ -4,20 +4,31 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <!-- Define IsWindows property based on OS -->
+    <PropertyGroup>
+        <IsWindows Condition="'$(OS)' == 'Windows_NT'">true</IsWindows>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="ExMod.Exiled" Version="9.3.0" />
+        <PackageReference Include="ExMod.Exiled" Version="9.3.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Reference Include="UnityEngine">
-        <HintPath>..\..\..\Documents\SCPRefrences\UnityEngine.dll</HintPath>
-      </Reference>
-      <Reference Include="UnityEngine.CoreModule">
-        <HintPath>..\..\..\Documents\SCPRefrences\UnityEngine.CoreModule.dll</HintPath>
-      </Reference>
+    <!-- Windows-specific references -->
+    <ItemGroup Condition="'$(IsWindows)' == 'true'">
+        <Reference Include="WindowsSpecificLibrary" />
     </ItemGroup>
-    
-    
+
+    <!-- macOS-specific references -->
+    <ItemGroup Condition="'$(IsWindows)' != 'true'">
+        <Reference Include="UnityEngine">
+            <HintPath>$(HOME)/Documents/SCPRefrences/UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(HOME)/Documents/SCPRefrences/UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
 </Project>

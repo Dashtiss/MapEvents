@@ -20,4 +20,11 @@ public class MapEventsConfig : IConfig
     public int DistanceOfExplosion { get; set; } = 5;
     [Description("The message people will get if they die, use `{{Player}}` for the username of the peanut")]
     public string PeanutMessage { get; set; } = "Died to Peanut Explosion {{Player}}";
+
+    [Description("Will the round start with MTF and D-Class spawning instead of SCP's")]
+    public bool NoScpStart { get; set; } = true;
+    [Description("Chance that no SCP will spawn and only MTF and D-Class will spawn")]
+    public int NoScpChance { get; set; } = 20;
+    [Description("Minimom number of Players required to do this event")]
+    public int MinimumPlayers { get; set; } = 8;
 }
